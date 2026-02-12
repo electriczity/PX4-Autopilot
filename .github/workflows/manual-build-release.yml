@@ -19,7 +19,6 @@ on:
         description: 'Create GitHub release?'
         type: boolean
         default: true
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -53,7 +52,19 @@ jobs:
             python3-dev \
             rsync \
             unzip \
-            zip
+            zip \
+            wget
+      
+      - name: Install ARM toolchain
+        run: |
+          # Download and install ARM GNU Toolchain
+          wget -qO- https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz | tar -xJ -C /opt
+          
+          # Add to PATH
+          echo "/opt/arm-gnu-toolchain-13.2.Rel1-x86_64-arm-none-eabi/bin" >> $GITHUB_PATH
+          
+          # Verify installation
+          /opt/arm-gnu-toolchain-13.2.Rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc --version
       
       - name: Install Python dependencies
         run: |
@@ -69,6 +80,10 @@ jobs:
       - name: Build PX4 firmware
         run: |
           export PATH="/usr/lib/ccache:$PATH"
+          
+          # Verify ARM toolchain is in PATH
+          which arm-none-eabi-gcc
+          arm-none-eabi-gcc --version
           
           # Split comma-separated targets
           IFS=',' read -ra TARGETS <<< "${{ github.event.inputs.target_boards }}"
