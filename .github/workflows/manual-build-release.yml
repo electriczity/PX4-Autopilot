@@ -14,7 +14,7 @@ on:
       target_boards:
         description: 'Build targets (comma-separated)'
         required: true
-        default: 'px4_fmu-v5_default'
+        default: 'micoair_h743-v2_default'
       create_release:
         description: 'Create GitHub release?'
         type: boolean
@@ -57,17 +57,8 @@ jobs:
       
       - name: Install Python dependencies
         run: |
-          pip3 install --user -U \
-            empy \
-            jinja2 \
-            jsonschema \
-            numpy \
-            packaging \
-            pyros-genmsg \
-            pyulog \
-            pyyaml \
-            toml \
-            wheel
+          # Use PX4's official requirements
+          pip3 install --user -r Tools/setup/requirements.txt
       
       - name: Setup ccache
         uses: hendrikmuhs/ccache-action@v1
