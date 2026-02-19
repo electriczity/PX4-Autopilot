@@ -102,10 +102,10 @@
 // #define BOARD_BATTERY2_V_DIV         (11.0f)     /* measured with the provided PM board */
 
 
-/* PWM
+/* PWM - JP_PPM: Reduced from 10 to 8 channels (Timer3 removed for HRT+PPM)
  */
-#define DIRECT_PWM_OUTPUT_CHANNELS   10
-#define DIRECT_INPUT_TIMER_CHANNELS  10
+#define DIRECT_PWM_OUTPUT_CHANNELS   8
+#define DIRECT_INPUT_TIMER_CHANNELS  8
 
 #define BOARD_HAS_PWM  DIRECT_PWM_OUTPUT_CHANNELS
 
