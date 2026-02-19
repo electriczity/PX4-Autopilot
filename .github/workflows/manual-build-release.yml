@@ -14,7 +14,7 @@ on:
       target_boards:
         description: 'Build targets (comma-separated)'
         required: true
-        default: 'micoair_h743-v2_default'
+        default: 'micoair_h743-v2-jp_default'
       create_release:
         description: 'Create GitHub release?'
         type: boolean
